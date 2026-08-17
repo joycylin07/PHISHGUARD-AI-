@@ -3,8 +3,10 @@ import joblib
 import pandas as pd
 from feature_extraction import extract_domain_features, FEATURE_NAMES
 
-MODEL_PATH = "model/phishing_model.pkl"
-FEATURES_PATH = "model/model_features.pkl"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+MODEL_PATH = os.path.join(BASE_DIR, "model", "phishing_model.pkl")
+FEATURES_PATH = os.path.join(BASE_DIR, "model", "model_features.pkl")
 
 if not os.path.exists(MODEL_PATH) or not os.path.exists(FEATURES_PATH):
     raise FileNotFoundError("Model files missing. Please run train_model.py first.")
