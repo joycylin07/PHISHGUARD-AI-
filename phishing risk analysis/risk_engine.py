@@ -80,8 +80,8 @@ IP_ADDRESS_PATTERN = re.compile(
 
 RISK_LEVELS = [
     (0, 30, "LOW"),
-    (31, 70, "MEDIUM"),
-    (71, 100, "HIGH"),
+    (30.1, 70, "MEDIUM"),
+    (70.1, 100, "HIGH"),
 ]
 
 RISK_LEVEL_ICONS = {"LOW": "🟢", "MEDIUM": "🟡", "HIGH": "🔴"}
