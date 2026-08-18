@@ -190,3 +190,27 @@ def get_dashboard_recent_scans(limit=10):
     finally:
         cursor.close()
         connection.close()
+
+def get_risk_distribution():
+    """Return risk-level distribution for dashboard charts."""
+
+    connection = get_connection()
+    cursor = connection.cursor(dictionary=True)
+
+    try:
+        query = """
+            SELECT
+                risk_level,
+                COUNT(*) AS scan_count
+            FROM scan_history
+            GROUP BY risk_level
+            ORDER BY scan_count DESC
+        """
+
+        cursor.execute(query)
+
+        return cursor.fetchall()
+
+    finally:
+        cursor.close()
+        connection.close()
