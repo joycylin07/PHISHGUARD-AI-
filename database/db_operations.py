@@ -156,3 +156,37 @@ def get_dashboard_statistics():
     finally:
         cursor.close()
         connection.close()
+
+def get_dashboard_recent_scans(limit=10):
+    """Return recent scans for the security dashboard."""
+
+    connection = get_connection()
+    cursor = connection.cursor(dictionary=True)
+
+    try:
+        limit = int(limit)
+
+        if limit <= 0:
+            limit = 10
+
+        query = f"""
+            SELECT
+                scan_id,
+                url,
+                overall_risk,
+                risk_level,
+                phishing_probability,
+                source,
+                scan_time
+            FROM scan_history
+            ORDER BY scan_time DESC
+            LIMIT {limit}
+        """
+
+        cursor.execute(query)
+
+        return cursor.fetchall()
+
+    finally:
+        cursor.close()
+        connection.close()
