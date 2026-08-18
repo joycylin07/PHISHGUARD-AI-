@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from database.db_operations import save_scan
 import sys
 import os
 
@@ -64,6 +65,13 @@ def analyze():
 
         # Step 3: Convert risk report to JSON
         result = report_to_dict(risk_report)
+        save_scan(
+          url=result["url"],
+          overall_risk=result["overall_risk"],
+          risk_level=result["risk_level"],
+          phishing_probability=result["phishing_probability"],
+          source=result["source"]
+        )
 
         # Include ML prediction details
         result["ml_prediction"] = ml_result["prediction"]
