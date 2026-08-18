@@ -131,3 +131,28 @@ def get_threat_statistics():
     finally:
         cursor.close()
         connection.close()
+
+def get_dashboard_statistics():
+    """Return summary statistics for the security dashboard."""
+
+    connection = get_connection()
+    cursor = connection.cursor(dictionary=True)
+
+    try:
+        query = """
+            SELECT
+                COUNT(*) AS total_scans,
+                SUM(CASE WHEN risk_level = 'Safe' THEN 1 ELSE 0 END) AS safe_scans,
+                SUM(CASE WHEN risk_level = 'Low' THEN 1 ELSE 0 END) AS low_risk_scans,
+                SUM(CASE WHEN risk_level = 'Medium' THEN 1 ELSE 0 END) AS medium_risk_scans,
+                SUM(CASE WHEN risk_level = 'High' THEN 1 ELSE 0 END) AS high_risk_scans
+            FROM scan_history
+        """
+
+        cursor.execute(query)
+
+        return cursor.fetchone()
+
+    finally:
+        cursor.close()
+        connection.close()
