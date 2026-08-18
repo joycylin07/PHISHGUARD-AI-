@@ -2,9 +2,7 @@ from .db_connection import get_connection
 
 
 def save_scan(url, overall_risk, risk_level, phishing_probability, source=None):
-    """
-    Save a phishing scan result into the scan_history table.
-    """
+    """Save a phishing scan result."""
 
     connection = get_connection()
     cursor = connection.cursor()
@@ -26,8 +24,11 @@ def save_scan(url, overall_risk, risk_level, phishing_probability, source=None):
     try:
         cursor.execute(query, values)
         connection.commit()
-
         return cursor.lastrowid
+
+    except Exception:
+        connection.rollback()
+        raise
 
     finally:
         cursor.close()
@@ -35,9 +36,7 @@ def save_scan(url, overall_risk, risk_level, phishing_probability, source=None):
 
 
 def get_recent_scans(limit=10):
-    """
-    Get the most recent scan records.
-    """
+    """Return the most recent scan records."""
 
     connection = get_connection()
     cursor = connection.cursor(dictionary=True)
@@ -63,7 +62,6 @@ def get_recent_scans(limit=10):
         """
 
         cursor.execute(query)
-
         return cursor.fetchall()
 
     finally:
@@ -72,20 +70,14 @@ def get_recent_scans(limit=10):
 
 
 def get_total_scans():
-    """
-    Return the total number of scans.
-    """
+    """Return the total number of scans."""
 
     connection = get_connection()
     cursor = connection.cursor()
 
     try:
-        cursor.execute(
-            "SELECT COUNT(*) FROM scan_history"
-        )
-
+        cursor.execute("SELECT COUNT(*) FROM scan_history")
         result = cursor.fetchone()
-
         return result[0]
 
     finally:
@@ -94,9 +86,7 @@ def get_total_scans():
 
 
 def get_scan_statistics():
-    """
-    Return scan counts grouped by risk level.
-    """
+    """Return scan counts grouped by risk level."""
 
     connection = get_connection()
     cursor = connection.cursor(dictionary=True)
@@ -112,7 +102,6 @@ def get_scan_statistics():
         """
 
         cursor.execute(query)
-
         return cursor.fetchall()
 
     finally:
@@ -121,9 +110,7 @@ def get_scan_statistics():
 
 
 def get_threat_statistics():
-    """
-    Return phishing probability statistics.
-    """
+    """Return phishing probability statistics."""
 
     connection = get_connection()
     cursor = connection.cursor(dictionary=True)
@@ -139,7 +126,6 @@ def get_threat_statistics():
         """
 
         cursor.execute(query)
-
         return cursor.fetchone()
 
     finally:
