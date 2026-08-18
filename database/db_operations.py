@@ -142,10 +142,9 @@ def get_dashboard_statistics():
         query = """
             SELECT
                 COUNT(*) AS total_scans,
-                SUM(CASE WHEN risk_level = 'Safe' THEN 1 ELSE 0 END) AS safe_scans,
-                SUM(CASE WHEN risk_level = 'Low' THEN 1 ELSE 0 END) AS low_risk_scans,
-                SUM(CASE WHEN risk_level = 'Medium' THEN 1 ELSE 0 END) AS medium_risk_scans,
-                SUM(CASE WHEN risk_level = 'High' THEN 1 ELSE 0 END) AS high_risk_scans
+                SUM(CASE WHEN risk_level = 'LOW' THEN 1 ELSE 0 END) AS low_risk_scans,
+                SUM(CASE WHEN risk_level = 'MEDIUM' THEN 1 ELSE 0 END) AS medium_risk_scans,
+                SUM(CASE WHEN risk_level = 'HIGH' THEN 1 ELSE 0 END) AS high_risk_scans
             FROM scan_history
         """
 
