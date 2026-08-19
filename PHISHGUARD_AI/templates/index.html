@@ -1,0 +1,2741 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PHISHGUARD AI | Explain Before You Click</title>
+
+    <style>
+
+        /* =========================================================
+           PHISHGUARD AI
+           MEDIUM-DARK AI CYBERSECURITY UI
+        ========================================================= */
+
+        :root {
+            --bg: #101321;
+            --bg-soft: #151a2d;
+
+            --panel: rgba(27, 33, 55, 0.78);
+            --panel-light: rgba(38, 45, 72, 0.75);
+
+            --purple: #9b8cff;
+            --purple-bright: #b4a8ff;
+            --blue: #6ca8ff;
+            --cyan: #67d9e8;
+
+            --text: #f5f6ff;
+            --text-soft: #b7bdd2;
+            --text-muted: #7f879f;
+
+            --border: rgba(255, 255, 255, 0.09);
+
+            --success: #65e6aa;
+            --warning: #ffc978;
+            --danger: #ff7d98;
+
+            --radius-lg: 28px;
+            --radius-md: 18px;
+            --radius-sm: 12px;
+        }
+
+
+        /* =========================================================
+           RESET
+        ========================================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+
+            font-family:
+                Inter,
+                ui-sans-serif,
+                system-ui,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+
+            color: var(--text);
+
+            background:
+                radial-gradient(
+                    circle at 15% 10%,
+                    rgba(125, 103, 255, 0.17),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 85% 25%,
+                    rgba(74, 177, 255, 0.12),
+                    transparent 28%
+                ),
+                radial-gradient(
+                    circle at 50% 90%,
+                    rgba(152, 111, 255, 0.09),
+                    transparent 32%
+                ),
+                var(--bg);
+
+            overflow-x: hidden;
+        }
+
+        button,
+        input {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+
+        /* =========================================================
+           BACKGROUND
+        ========================================================= */
+
+        .background-glow {
+            position: fixed;
+
+            width: 420px;
+            height: 420px;
+
+            border-radius: 50%;
+
+            filter: blur(100px);
+
+            opacity: 0.11;
+
+            pointer-events: none;
+
+            z-index: -2;
+
+            animation:
+                floatGlow 10s ease-in-out infinite alternate;
+        }
+
+        .glow-one {
+            background: #806dff;
+
+            top: -180px;
+            left: -150px;
+        }
+
+        .glow-two {
+            background: #49c7e8;
+
+            right: -180px;
+            top: 30%;
+
+            animation-delay: 2s;
+        }
+
+        .glow-three {
+            background: #9a70ff;
+
+            left: 35%;
+            bottom: -220px;
+
+            animation-delay: 4s;
+        }
+
+        @keyframes floatGlow {
+
+            from {
+                transform:
+                    translate(0, 0)
+                    scale(1);
+            }
+
+            to {
+                transform:
+                    translate(30px, -25px)
+                    scale(1.08);
+            }
+        }
+
+
+        /* =========================================================
+           NAVIGATION
+        ========================================================= */
+
+        nav {
+            width: min(1180px, 90%);
+
+            margin: auto;
+
+            padding: 25px 0;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+        }
+
+        .brand {
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+        }
+
+        .brand-icon {
+            width: 43px;
+            height: 43px;
+
+            border-radius: 14px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(155, 140, 255, 0.35),
+                    rgba(103, 217, 232, 0.20)
+                );
+
+            border:
+                1px solid
+                rgba(180, 168, 255, 0.25);
+
+            box-shadow:
+                0 0 30px
+                rgba(139, 120, 255, 0.16);
+
+            font-size: 21px;
+        }
+
+        .brand-name {
+            font-size: 17px;
+
+            font-weight: 800;
+
+            letter-spacing: 1.2px;
+        }
+
+        .brand-name span {
+            color: var(--purple-bright);
+        }
+
+        .nav-actions {
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+        }
+
+        .login-nav-button {
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            padding: 9px 16px;
+
+            border-radius: 50px;
+
+            text-decoration: none;
+
+            color: var(--text);
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            background:
+                rgba(155, 140, 255, 0.10);
+
+            border:
+                1px solid
+                rgba(155, 140, 255, 0.25);
+
+            transition:
+                transform 0.2s ease,
+                background 0.2s ease,
+                border-color 0.2s ease;
+        }
+
+        .login-nav-button:hover {
+            transform:
+                translateY(-2px);
+
+            background:
+                rgba(155, 140, 255, 0.18);
+
+            border-color:
+                rgba(180, 168, 255, 0.45);
+        }
+
+        .status-pill {
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding: 9px 14px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 50px;
+
+            background:
+                rgba(255, 255, 255, 0.035);
+
+            color: var(--text-soft);
+
+            font-size: 12px;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+
+            border-radius: 50%;
+
+            background:
+                var(--success);
+
+            box-shadow:
+                0 0 12px
+                rgba(101, 230, 170, 0.7);
+
+            animation:
+                pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.45;
+                transform: scale(0.75);
+            }
+        }
+
+
+        /* =========================================================
+           HERO
+        ========================================================= */
+
+        .hero {
+            width: min(1050px, 90%);
+
+            margin: 80px auto 0;
+
+            text-align: center;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding: 8px 14px;
+
+            border:
+                1px solid
+                rgba(155, 140, 255, 0.20);
+
+            border-radius: 50px;
+
+            background:
+                rgba(155, 140, 255, 0.07);
+
+            color:
+                var(--purple-bright);
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            margin-bottom: 25px;
+
+            animation:
+                fadeUp 0.8s ease both;
+        }
+
+        .hero h1 {
+            max-width: 900px;
+
+            margin: auto;
+
+            font-size:
+                clamp(48px, 7vw, 82px);
+
+            line-height: 0.98;
+
+            letter-spacing: -3.5px;
+
+            font-weight: 800;
+
+            animation:
+                fadeUp 0.8s 0.1s ease both;
+        }
+
+        .hero h1 .gradient-text {
+
+            background:
+                linear-gradient(
+                    100deg,
+                    #ffffff 10%,
+                    #b7aaff 48%,
+                    #78dceb 90%
+                );
+
+            -webkit-background-clip: text;
+
+            background-clip: text;
+
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-description {
+
+            max-width: 650px;
+
+            margin: 27px auto 0;
+
+            color:
+                var(--text-soft);
+
+            font-size: 17px;
+
+            line-height: 1.75;
+
+            animation:
+                fadeUp 0.8s 0.2s ease both;
+        }
+
+
+        @keyframes fadeUp {
+
+            from {
+                opacity: 0;
+
+                transform:
+                    translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+            }
+        }
+
+
+        /* =========================================================
+           URL SCANNER
+        ========================================================= */
+
+        .scanner-wrapper {
+
+            width: min(850px, 100%);
+
+            margin: 48px auto 0;
+
+            padding: 1px;
+
+            border-radius: 24px;
+
+            background:
+                linear-gradient(
+                    120deg,
+                    rgba(155, 140, 255, 0.45),
+                    rgba(103, 217, 232, 0.18),
+                    rgba(255,255,255,0.05)
+                );
+
+            box-shadow:
+                0 30px 80px
+                rgba(0, 0, 0, 0.25);
+
+            animation:
+                fadeUp 0.8s 0.3s ease both;
+        }
+
+        .scanner {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            padding: 9px;
+
+            border-radius: 23px;
+
+            background:
+                rgba(20, 25, 43, 0.94);
+
+            backdrop-filter:
+                blur(20px);
+        }
+
+        .url-icon {
+
+            width: 48px;
+            height: 48px;
+
+            flex-shrink: 0;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 15px;
+
+            background:
+                rgba(155, 140, 255, 0.08);
+
+            color:
+                var(--purple-bright);
+
+            font-size: 20px;
+        }
+
+        #urlInput {
+
+            flex: 1;
+
+            min-width: 0;
+
+            border: none;
+
+            outline: none;
+
+            background:
+                transparent;
+
+            color:
+                var(--text);
+
+            padding:
+                0 10px;
+
+            font-size: 15px;
+        }
+
+        #urlInput::placeholder {
+
+            color:
+                var(--text-muted);
+        }
+
+
+        /* =========================================================
+           CLEAR BUTTON
+        ========================================================= */
+
+        .clear-url {
+
+            width: 34px;
+            height: 34px;
+
+            flex-shrink: 0;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border: none;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255, 255, 255, 0.055);
+
+            color:
+                var(--text-muted);
+
+            font-size: 20px;
+
+            opacity: 0;
+
+            pointer-events: none;
+
+            transition:
+                opacity 0.2s ease,
+                background 0.2s ease,
+                color 0.2s ease;
+        }
+
+        .clear-url.visible {
+
+            opacity: 1;
+
+            pointer-events: auto;
+        }
+
+        .clear-url:hover {
+
+            background:
+                rgba(255, 125, 152, 0.13);
+
+            color:
+                var(--danger);
+        }
+
+
+        /* =========================================================
+           ANALYZE BUTTON
+        ========================================================= */
+
+        .analyze-button {
+
+            border: none;
+
+            padding:
+                15px 23px;
+
+            border-radius: 15px;
+
+            color: white;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #8170ff,
+                    #5c9dff
+                );
+
+            box-shadow:
+                0 10px 25px
+                rgba(108, 127, 255, 0.25);
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease,
+                filter 0.25s ease;
+        }
+
+        .analyze-button:hover {
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 14px 32px
+                rgba(108, 127, 255, 0.38);
+
+            filter:
+                brightness(1.08);
+        }
+
+        .analyze-button:active {
+
+            transform:
+                translateY(0);
+        }
+
+
+        /* =========================================================
+           TRUST MESSAGE
+        ========================================================= */
+
+        .trust-message {
+
+            margin-top: 15px;
+
+            color:
+                var(--text-muted);
+
+            font-size: 11px;
+
+            animation:
+                fadeUp 0.8s 0.4s ease both;
+        }
+
+
+        /* =========================================================
+           FEATURE GRID
+        ========================================================= */
+
+        .features {
+
+            width: min(1050px, 90%);
+
+            margin:
+                85px auto 0;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 17px;
+        }
+
+        .feature-card {
+
+            position: relative;
+
+            padding: 26px;
+
+            min-height: 190px;
+
+            border-radius:
+                var(--radius-md);
+
+            border:
+                1px solid
+                var(--border);
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(39, 45, 70, 0.68),
+                    rgba(23, 28, 48, 0.65)
+                );
+
+            backdrop-filter:
+                blur(16px);
+
+            text-align: left;
+
+            overflow: hidden;
+
+            transition:
+                transform 0.3s ease,
+                border-color 0.3s ease,
+                background 0.3s ease;
+        }
+
+        .feature-card::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 120px;
+            height: 120px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(155, 140, 255, 0.08);
+
+            filter:
+                blur(25px);
+
+            right: -50px;
+            top: -50px;
+        }
+
+        .feature-card:hover {
+
+            transform:
+                translateY(-6px);
+
+            border-color:
+                rgba(155, 140, 255, 0.25);
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(47, 54, 83, 0.78),
+                    rgba(27, 33, 55, 0.75)
+                );
+        }
+
+        .feature-icon {
+
+            width: 45px;
+            height: 45px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 13px;
+
+            background:
+                rgba(155, 140, 255, 0.09);
+
+            border:
+                1px solid
+                rgba(155, 140, 255, 0.12);
+
+            color:
+                var(--purple-bright);
+
+            font-size: 19px;
+
+            margin-bottom: 18px;
+        }
+
+        .feature-card h3 {
+
+            font-size: 15px;
+
+            margin-bottom: 9px;
+        }
+
+        .feature-card p {
+
+            color:
+                var(--text-muted);
+
+            font-size: 13px;
+
+            line-height: 1.65;
+        }
+
+
+        /* =========================================================
+           AI ANALYSIS OVERLAY
+        ========================================================= */
+
+        .scan-overlay {
+
+            position: fixed;
+
+            inset: 0;
+
+            display: none;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 20px;
+
+            background:
+                rgba(8, 11, 22, 0.88);
+
+            backdrop-filter:
+                blur(18px);
+
+            z-index: 100;
+        }
+
+        .scan-overlay.active {
+
+            display: flex;
+        }
+
+
+        /* =========================================================
+           ANALYSIS CARD
+        ========================================================= */
+
+        .scan-box {
+
+            width: min(520px, 100%);
+
+            padding:
+                38px 32px;
+
+            border-radius:
+                var(--radius-lg);
+
+            text-align: center;
+
+            border:
+                1px solid
+                rgba(155, 140, 255, 0.20);
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(38, 44, 70, 0.96),
+                    rgba(18, 23, 42, 0.98)
+                );
+
+            box-shadow:
+                0 40px 120px
+                rgba(0,0,0,0.55);
+
+            animation:
+                scanAppear 0.4s ease;
+        }
+
+        @keyframes scanAppear {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    scale(0.94)
+                    translateY(12px);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    scale(1)
+                    translateY(0);
+
+            }
+        }
+
+
+        /* =========================================================
+           SCANNING ICON
+        ========================================================= */
+
+        .scan-icon-container {
+
+            position: relative;
+
+            width: 88px;
+            height: 88px;
+
+            margin:
+                0 auto 20px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+        }
+
+        .scan-circle {
+
+            position: absolute;
+
+            inset: 0;
+
+            border-radius: 50%;
+
+            border:
+                3px solid
+                rgba(155, 140, 255, 0.12);
+
+            border-top-color:
+                var(--purple-bright);
+
+            border-right-color:
+                var(--cyan);
+
+            animation:
+                rotate 1s linear infinite;
+        }
+
+        .scan-circle-inner {
+
+            width: 56px;
+            height: 56px;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            background:
+                rgba(155, 140, 255, 0.09);
+
+            border:
+                1px solid
+                rgba(155, 140, 255, 0.18);
+
+            font-size: 24px;
+
+            animation:
+                scanPulse 1.6s ease-in-out infinite;
+        }
+
+        @keyframes rotate {
+
+            to {
+                transform:
+                    rotate(360deg);
+            }
+        }
+
+        @keyframes scanPulse {
+
+            0%,
+            100% {
+
+                transform:
+                    scale(1);
+
+                box-shadow:
+                    0 0 0
+                    rgba(155,140,255,0);
+
+            }
+
+            50% {
+
+                transform:
+                    scale(1.08);
+
+                box-shadow:
+                    0 0 30px
+                    rgba(155,140,255,0.15);
+
+            }
+        }
+
+        .scan-box h2 {
+
+            font-size: 22px;
+
+            margin-bottom: 8px;
+        }
+
+        .scan-description {
+
+            color:
+                var(--text-muted);
+
+            font-size: 13px;
+
+            line-height: 1.6;
+
+            margin-bottom: 18px;
+        }
+
+
+        /* =========================================================
+           URL BEING ANALYZED
+        ========================================================= */
+
+        .scan-url {
+
+            padding:
+                12px 15px;
+
+            border-radius:
+                var(--radius-sm);
+
+            background:
+                rgba(255,255,255,0.035);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.06);
+
+            color:
+                var(--purple-bright);
+
+            font-size: 12px;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+
+            white-space: nowrap;
+
+            margin-bottom: 25px;
+        }
+
+
+        /* =========================================================
+           PROGRESS BAR
+        ========================================================= */
+
+        .progress-container {
+
+            width: 100%;
+
+            height: 6px;
+
+            border-radius: 50px;
+
+            background:
+                rgba(255,255,255,0.07);
+
+            overflow: hidden;
+
+            margin-bottom: 27px;
+        }
+
+        .progress-bar {
+
+            width: 0%;
+
+            height: 100%;
+
+            border-radius: 50px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    var(--purple),
+                    var(--blue),
+                    var(--cyan)
+                );
+
+            box-shadow:
+                0 0 15px
+                rgba(103,217,232,0.35);
+
+            transition:
+                width 0.5s ease;
+        }
+
+
+        /* =========================================================
+           ANALYSIS STEPS
+        ========================================================= */
+
+        .analysis-steps {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 10px;
+
+            text-align: left;
+        }
+
+        .analysis-step {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 13px;
+
+            padding:
+                12px 14px;
+
+            border-radius:
+                var(--radius-sm);
+
+            background:
+                rgba(255,255,255,0.025);
+
+            border:
+                1px solid
+                transparent;
+
+            color:
+                var(--text-muted);
+
+            font-size: 12px;
+
+            transition:
+                all 0.3s ease;
+        }
+
+        .step-icon {
+
+            width: 30px;
+            height: 30px;
+
+            flex-shrink: 0;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 9px;
+
+            background:
+                rgba(255,255,255,0.045);
+
+            font-size: 14px;
+        }
+
+        .step-status {
+
+            margin-left: auto;
+
+            font-size: 11px;
+        }
+
+
+        /* ACTIVE STEP */
+
+        .analysis-step.active {
+
+            color:
+                var(--text);
+
+            background:
+                rgba(155,140,255,0.08);
+
+            border-color:
+                rgba(155,140,255,0.16);
+        }
+
+        .analysis-step.active .step-icon {
+
+            background:
+                rgba(155,140,255,0.15);
+
+            box-shadow:
+                0 0 18px
+                rgba(155,140,255,0.10);
+        }
+
+        .analysis-step.active .step-status {
+
+            color:
+                var(--purple-bright);
+        }
+
+
+        /* COMPLETED STEP */
+
+        .analysis-step.completed {
+
+            color:
+                var(--text-soft);
+        }
+
+        .analysis-step.completed .step-icon {
+
+            background:
+                rgba(101,230,170,0.10);
+
+            color:
+                var(--success);
+        }
+
+        .analysis-step.completed .step-status {
+
+            color:
+                var(--success);
+        }
+
+
+        /* WAITING STEP */
+
+        .analysis-step.waiting {
+
+            opacity:
+                0.55;
+        }
+
+
+        /* =========================================================
+           ANALYSIS STATUS
+        ========================================================= */
+
+        .current-status {
+
+            margin-top: 22px;
+
+            color:
+                var(--text-soft);
+
+            font-size: 12px;
+
+            min-height: 18px;
+        }
+
+        .status-loader {
+
+            display: inline-block;
+
+            width: 5px;
+            height: 5px;
+
+            margin-left: 4px;
+
+            border-radius: 50%;
+
+            background:
+                var(--purple-bright);
+
+            box-shadow:
+                8px 0 var(--blue),
+                16px 0 var(--cyan);
+
+            animation:
+                loadingDots 1s infinite;
+        }
+
+        @keyframes loadingDots {
+
+            0%,
+            100% {
+
+                opacity:
+                    0.3;
+
+            }
+
+            50% {
+
+                opacity:
+                    1;
+
+            }
+        }
+
+
+        /* =========================================================
+           RESULT MESSAGE
+        ========================================================= */
+
+        .analysis-result {
+
+            display: none;
+
+            margin-top: 22px;
+
+            padding: 18px;
+
+            border-radius: 16px;
+
+            background:
+                rgba(101,230,170,0.06);
+
+            border:
+                1px solid
+                rgba(101,230,170,0.16);
+
+            text-align: left;
+        }
+
+        .analysis-result.show {
+            display: block;
+        }
+
+        .analysis-result-title {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            margin-bottom: 7px;
+        }
+
+        .analysis-result-title span:first-child {
+            font-size: 20px;
+        }
+
+        .analysis-result p {
+
+            color:
+                var(--text-muted);
+
+            font-size: 12px;
+
+            line-height: 1.6;
+        }
+
+        .close-result {
+
+            width: 100%;
+
+            margin-top: 15px;
+
+            padding: 11px;
+
+            border: none;
+
+            border-radius: 11px;
+
+            color: white;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            background:
+                rgba(155,140,255,0.15);
+
+            border:
+                1px solid
+                rgba(155,140,255,0.20);
+        }
+
+        .close-result:hover {
+
+            background:
+                rgba(155,140,255,0.24);
+        }
+
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        footer {
+
+            width: min(1050px, 90%);
+
+            margin:
+                75px auto 25px;
+
+            padding-top:
+                22px;
+
+            border-top:
+                1px solid
+                rgba(255,255,255,0.06);
+
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            color:
+                var(--text-muted);
+
+            font-size: 11px;
+        }
+
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 760px) {
+
+            nav {
+
+                width: 88%;
+            }
+
+            .nav-actions {
+
+                gap: 7px;
+            }
+
+            .status-pill {
+
+                display: none;
+            }
+
+            .hero {
+
+                margin-top:
+                    55px;
+            }
+
+            .hero h1 {
+
+                font-size:
+                    clamp(43px, 12vw, 65px);
+
+                letter-spacing:
+                    -2.5px;
+            }
+
+            .hero-description {
+
+                font-size:
+                    15px;
+            }
+
+            .scanner {
+
+                flex-wrap:
+                    wrap;
+            }
+
+            .url-icon {
+
+                display:
+                    none;
+            }
+
+            #urlInput {
+
+                width: 100%;
+
+                flex-basis:
+                    100%;
+
+                padding:
+                    14px;
+            }
+
+            .clear-url {
+
+                margin-right:
+                    5px;
+            }
+
+            .analyze-button {
+
+                width:
+                    100%;
+
+                padding:
+                    15px;
+            }
+
+            .features {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+            .scan-box {
+
+                padding:
+                    30px 20px;
+            }
+
+            footer {
+
+                flex-direction:
+                    column;
+
+                gap:
+                    8px;
+
+                text-align:
+                    center;
+            }
+        }
+
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+
+                animation-duration:
+                    0.01ms !important;
+
+                animation-iteration-count:
+                    1 !important;
+
+                scroll-behavior:
+                    auto !important;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================================================
+         BACKGROUND
+    ========================================================== -->
+
+    <div class="background-glow glow-one"></div>
+
+    <div class="background-glow glow-two"></div>
+
+    <div class="background-glow glow-three"></div>
+
+
+
+    <!-- =========================================================
+         NAVIGATION
+    ========================================================== -->
+
+    <nav>
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                🛡️
+            </div>
+
+            <div class="brand-name">
+                PHISH<span>GUARD</span> AI
+            </div>
+
+        </div>
+
+
+        <div class="nav-actions">
+
+            <a
+                href="login.html"
+                class="login-nav-button"
+            >
+                🔐 Login
+            </a>
+
+
+            <div class="status-pill">
+
+                <span class="status-dot"></span>
+
+                Detection Engine Online
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- =========================================================
+         HERO
+    ========================================================== -->
+
+    <main>
+
+        <section class="hero">
+
+
+            <div class="eyebrow">
+
+                ✦ AI-Powered Phishing Detection
+
+            </div>
+
+
+            <h1>
+
+                <span class="gradient-text">
+                    Explain Before
+                </span>
+
+                <br>
+
+                You Click.
+
+            </h1>
+
+
+            <p class="hero-description">
+
+                Analyze a website URL with AI and discover
+                not only whether it may be dangerous,
+                but <strong>why</strong> it was flagged.
+
+            </p>
+
+
+
+            <!-- =================================================
+                 URL SCANNER
+            ================================================== -->
+
+            <div class="scanner-wrapper">
+
+                <div class="scanner">
+
+
+                    <div class="url-icon">
+                        🔗
+                    </div>
+
+
+                    <input
+                        type="text"
+                        id="urlInput"
+                        placeholder="Paste a website URL to analyze..."
+                        autocomplete="off"
+                        spellcheck="false"
+                    >
+
+
+                    <button
+                        type="button"
+                        class="clear-url"
+                        id="clearUrl"
+                        aria-label="Clear URL"
+                        title="Clear URL"
+                    >
+                        ×
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="analyze-button"
+                        id="analyzeButton"
+                    >
+
+                        <span>
+                            🔍
+                        </span>
+
+                        Analyze URL
+
+                        <span>
+                            →
+                        </span>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <p class="trust-message">
+
+                🔒 Your URL is analyzed for security patterns
+                before you interact with it.
+
+            </p>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             FEATURE CARDS
+        ====================================================== -->
+
+        <section class="features">
+
+
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    🧠
+                </div>
+
+                <h3>
+                    AI-Powered Detection
+                </h3>
+
+                <p>
+                    A trained machine learning model evaluates
+                    URL characteristics to identify suspicious
+                    phishing patterns.
+                </p>
+
+            </article>
+
+
+
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    ✦
+                </div>
+
+                <h3>
+                    Explainable Risk
+                </h3>
+
+                <p>
+                    Go beyond a simple prediction. See the
+                    factors that contributed to the detected
+                    risk.
+                </p>
+
+            </article>
+
+
+
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    🛡️
+                </div>
+
+                <h3>
+                    Actionable Protection
+                </h3>
+
+                <p>
+                    Receive a clear risk level and practical
+                    guidance before entering sensitive
+                    information.
+                </p>
+
+            </article>
+
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =========================================================
+         AI ANALYSIS OVERLAY
+    ========================================================== -->
+
+    <div
+        class="scan-overlay"
+        id="scanOverlay"
+    >
+
+        <div class="scan-box">
+
+
+            <!-- SCANNING ICON -->
+
+            <div class="scan-icon-container">
+
+                <div class="scan-circle"></div>
+
+                <div class="scan-circle-inner">
+                    🧠
+                </div>
+
+            </div>
+
+
+
+            <!-- TITLE -->
+
+            <h2 id="scanTitle">
+                Analyzing URL
+            </h2>
+
+
+            <p class="scan-description">
+                PHISHGUARD AI is examining the website
+                for suspicious patterns.
+            </p>
+
+
+
+            <!-- URL -->
+
+            <div
+                class="scan-url"
+                id="scanURL"
+            >
+                -
+            </div>
+
+
+
+            <!-- PROGRESS -->
+
+            <div class="progress-container">
+
+                <div
+                    class="progress-bar"
+                    id="progressBar"
+                ></div>
+
+            </div>
+
+
+
+            <!-- ANALYSIS STEPS -->
+
+            <div class="analysis-steps">
+
+
+                <!-- STEP 1 -->
+
+                <div
+                    class="analysis-step active"
+                    id="step1"
+                >
+
+                    <div class="step-icon">
+                        🔗
+                    </div>
+
+                    <span>
+                        URL Structure Analysis
+                    </span>
+
+                    <span
+                        class="step-status"
+                        id="status1"
+                    >
+                        Scanning...
+                    </span>
+
+                </div>
+
+
+
+                <!-- STEP 2 -->
+
+                <div
+                    class="analysis-step waiting"
+                    id="step2"
+                >
+
+                    <div class="step-icon">
+                        🧠
+                    </div>
+
+                    <span>
+                        AI Detection
+                    </span>
+
+                    <span
+                        class="step-status"
+                        id="status2"
+                    >
+                        Waiting
+                    </span>
+
+                </div>
+
+
+
+                <!-- STEP 3 -->
+
+                <div
+                    class="analysis-step waiting"
+                    id="step3"
+                >
+
+                    <div class="step-icon">
+                        🛡️
+                    </div>
+
+                    <span>
+                        Risk Analysis
+                    </span>
+
+                    <span
+                        class="step-status"
+                        id="status3"
+                    >
+                        Waiting
+                    </span>
+
+                </div>
+
+
+
+                <!-- STEP 4 -->
+
+                <div
+                    class="analysis-step waiting"
+                    id="step4"
+                >
+
+                    <div class="step-icon">
+                        📊
+                    </div>
+
+                    <span>
+                        Preparing Result
+                    </span>
+
+                    <span
+                        class="step-status"
+                        id="status4"
+                    >
+                        Waiting
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- CURRENT STATUS -->
+
+            <div
+                class="current-status"
+                id="currentStatus"
+            >
+
+                Inspecting URL structure
+
+                <span class="status-loader"></span>
+
+            </div>
+
+
+            <!-- RESULT -->
+
+            <div
+                class="analysis-result"
+                id="analysisResult"
+            >
+
+                <div class="analysis-result-title">
+
+                    <span>✓</span>
+
+                    <span>
+                        Analysis Ready
+                    </span>
+
+                </div>
+
+                <p>
+                    The URL has completed the PHISHGUARD AI
+                    analysis pipeline. The next stage can connect
+                    this interface to the machine learning
+                    prediction and explainable risk engine.
+                </p>
+
+                <button
+                    type="button"
+                    class="close-result"
+                    id="closeResult"
+                >
+                    Analyze Another URL
+                </button>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================================================
+         FOOTER
+    ========================================================== -->
+
+    <footer>
+
+        <span>
+            PHISHGUARD AI
+        </span>
+
+        <span>
+            Explain Before You Click
+        </span>
+
+        <span>
+            AI-assisted security analysis
+        </span>
+
+    </footer>
+
+
+
+    <!-- =========================================================
+         JAVASCRIPT
+    ========================================================== -->
+
+    <script>
+
+        /* =====================================================
+           ELEMENT REFERENCES
+        ===================================================== */
+
+        const urlInput =
+            document.getElementById("urlInput");
+
+        const clearUrl =
+            document.getElementById("clearUrl");
+
+        const analyzeButton =
+            document.getElementById("analyzeButton");
+
+        const scanOverlay =
+            document.getElementById("scanOverlay");
+
+        const scanURL =
+            document.getElementById("scanURL");
+
+        const progressBar =
+            document.getElementById("progressBar");
+
+        const scanTitle =
+            document.getElementById("scanTitle");
+
+        const currentStatus =
+            document.getElementById("currentStatus");
+
+        const analysisResult =
+            document.getElementById("analysisResult");
+
+        const closeResult =
+            document.getElementById("closeResult");
+
+
+        /* =====================================================
+           SHOW / HIDE CLEAR BUTTON
+        ===================================================== */
+
+        urlInput.addEventListener(
+            "input",
+            function () {
+
+                if (
+                    urlInput.value.trim().length > 0
+                ) {
+
+                    clearUrl.classList.add(
+                        "visible"
+                    );
+
+                } else {
+
+                    clearUrl.classList.remove(
+                        "visible"
+                    );
+
+                }
+
+            }
+        );
+
+
+        /* =====================================================
+           CLEAR URL
+        ===================================================== */
+
+        clearUrl.addEventListener(
+            "click",
+            function () {
+
+                urlInput.value = "";
+
+                clearUrl.classList.remove(
+                    "visible"
+                );
+
+                urlInput.focus();
+
+            }
+        );
+
+
+        /* =====================================================
+           ENTER KEY
+        ===================================================== */
+
+        urlInput.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (
+                    event.key === "Enter"
+                ) {
+
+                    startAnalysis();
+
+                }
+
+            }
+        );
+
+
+        /* =====================================================
+           RESET ANALYSIS
+        ===================================================== */
+
+        function resetAnalysis() {
+
+            progressBar.style.width =
+                "0%";
+
+
+            scanTitle.textContent =
+                "Analyzing URL";
+
+
+            analysisResult.classList.remove(
+                "show"
+            );
+
+
+            const stepIds = [
+                "step1",
+                "step2",
+                "step3",
+                "step4"
+            ];
+
+
+            stepIds.forEach(
+                function (id, index) {
+
+                    const step =
+                        document.getElementById(id);
+
+                    const status =
+                        document.getElementById(
+                            "status" + (index + 1)
+                        );
+
+
+                    step.classList.remove(
+                        "active",
+                        "completed",
+                        "waiting"
+                    );
+
+
+                    if (index === 0) {
+
+                        step.classList.add(
+                            "active"
+                        );
+
+                        status.textContent =
+                            "Scanning...";
+
+                    } else {
+
+                        step.classList.add(
+                            "waiting"
+                        );
+
+                        status.textContent =
+                            "Waiting";
+
+                    }
+
+                }
+            );
+
+
+            currentStatus.innerHTML =
+                "Inspecting URL structure" +
+                ' <span class="status-loader"></span>';
+
+        }
+
+
+
+        /* =====================================================
+           UPDATE ANALYSIS STEP
+        ===================================================== */
+
+        function updateStep(
+            currentStep,
+            progress,
+            title,
+            message
+        ) {
+
+            const stepIds = [
+                "step1",
+                "step2",
+                "step3",
+                "step4"
+            ];
+
+
+            /* COMPLETE PREVIOUS STEPS */
+
+            for (
+                let i = 0;
+                i < currentStep - 1;
+                i++
+            ) {
+
+                const previousStep =
+                    document.getElementById(
+                        stepIds[i]
+                    );
+
+                const previousStatus =
+                    document.getElementById(
+                        "status" + (i + 1)
+                    );
+
+
+                previousStep.classList.remove(
+                    "active",
+                    "waiting"
+                );
+
+                previousStep.classList.add(
+                    "completed"
+                );
+
+
+                previousStatus.textContent =
+                    "✓ Complete";
+
+            }
+
+
+            /* CURRENT STEP */
+
+            const current =
+                document.getElementById(
+                    stepIds[currentStep - 1]
+                );
+
+            const currentStepStatus =
+                document.getElementById(
+                    "status" + currentStep
+                );
+
+
+            current.classList.remove(
+                "waiting",
+                "completed"
+            );
+
+            current.classList.add(
+                "active"
+            );
+
+
+            currentStepStatus.textContent =
+                "Scanning...";
+
+
+            /* WAITING STEPS */
+
+            for (
+                let i = currentStep;
+                i < stepIds.length;
+                i++
+            ) {
+
+                const waitingStep =
+                    document.getElementById(
+                        stepIds[i]
+                    );
+
+                const waitingStatus =
+                    document.getElementById(
+                        "status" + (i + 1)
+                    );
+
+
+                waitingStep.classList.remove(
+                    "active",
+                    "completed"
+                );
+
+                waitingStep.classList.add(
+                    "waiting"
+                );
+
+
+                waitingStatus.textContent =
+                    "Waiting";
+
+            }
+
+
+            progressBar.style.width =
+                progress + "%";
+
+
+            scanTitle.textContent =
+                title;
+
+
+            currentStatus.innerHTML =
+                message +
+                ' <span class="status-loader"></span>';
+
+        }
+
+
+
+        /* =====================================================
+           START ANALYSIS
+        ===================================================== */
+
+        function startAnalysis() {
+
+            const url =
+                urlInput.value.trim();
+
+
+            /* -------------------------------------------------
+               EMPTY URL
+            ------------------------------------------------- */
+
+            if (!url) {
+
+                urlInput.focus();
+
+
+                urlInput.animate(
+                    [
+                        {
+                            transform:
+                                "translateX(0)"
+                        },
+
+                        {
+                            transform:
+                                "translateX(-5px)"
+                        },
+
+                        {
+                            transform:
+                                "translateX(5px)"
+                        },
+
+                        {
+                            transform:
+                                "translateX(-4px)"
+                        },
+
+                        {
+                            transform:
+                                "translateX(4px)"
+                        },
+
+                        {
+                            transform:
+                                "translateX(0)"
+                        }
+                    ],
+                    {
+                        duration: 300
+                    }
+                );
+
+
+                return;
+
+            }
+
+
+
+            /* -------------------------------------------------
+               BASIC URL VALIDATION
+            ------------------------------------------------- */
+
+            let formattedURL =
+                url;
+
+
+            if (
+                !url.startsWith("http://") &&
+                !url.startsWith("https://")
+            ) {
+
+                formattedURL =
+                    "https://" + url;
+
+            }
+
+
+            try {
+
+                new URL(formattedURL);
+
+            } catch (error) {
+
+                urlInput.focus();
+
+                urlInput.animate(
+                    [
+                        {
+                            transform:
+                                "translateX(0)"
+                        },
+
+                        {
+                            transform:
+                                "translateX(-5px)"
+                        },
+
+                        {
+                            transform:
+                                "translateX(5px)"
+                        },
+
+                        {
+                            transform:
+                                "translateX(0)"
+                        }
+                    ],
+                    {
+                        duration: 300
+                    }
+                );
+
+                return;
+
+            }
+
+
+
+            /* -------------------------------------------------
+               PREPARE ANALYSIS
+            ------------------------------------------------- */
+
+            resetAnalysis();
+
+
+            scanURL.textContent =
+                formattedURL;
+
+
+            scanOverlay.classList.add(
+                "active"
+            );
+
+
+
+            /* -------------------------------------------------
+               STEP 1
+            ------------------------------------------------- */
+
+            setTimeout(
+                function () {
+
+                    updateStep(
+                        1,
+                        20,
+                        "Analyzing URL",
+                        "Inspecting URL structure"
+                    );
+
+                },
+                200
+            );
+
+
+
+            /* -------------------------------------------------
+               STEP 2
+            ------------------------------------------------- */
+
+            setTimeout(
+                function () {
+
+                    updateStep(
+                        2,
+                        45,
+                        "AI Detection",
+                        "AI model is detecting phishing patterns"
+                    );
+
+                },
+                1200
+            );
+
+
+
+            /* -------------------------------------------------
+               STEP 3
+            ------------------------------------------------- */
+
+            setTimeout(
+                function () {
+
+                    updateStep(
+                        3,
+                        70,
+                        "Risk Analysis",
+                        "Evaluating security risk indicators"
+                    );
+
+                },
+                2400
+            );
+
+
+
+            /* -------------------------------------------------
+               STEP 4
+            ------------------------------------------------- */
+
+            setTimeout(
+                function () {
+
+                    updateStep(
+                        4,
+                        90,
+                        "Preparing Result",
+                        "Generating explainable security report"
+                    );
+
+                },
+                3600
+            );
+
+
+
+            /* -------------------------------------------------
+               COMPLETE ANALYSIS
+            ------------------------------------------------- */
+
+            setTimeout(
+                function () {
+
+                    progressBar.style.width =
+                        "100%";
+
+
+                    /* COMPLETE STEP 4 */
+
+                    const finalStep =
+                        document.getElementById(
+                            "step4"
+                        );
+
+                    const finalStatus =
+                        document.getElementById(
+                            "status4"
+                        );
+
+
+                    finalStep.classList.remove(
+                        "active"
+                    );
+
+                    finalStep.classList.add(
+                        "completed"
+                    );
+
+
+                    finalStatus.textContent =
+                        "✓ Complete";
+
+
+                    /* COMPLETE STATUS */
+
+                    currentStatus.innerHTML =
+                        "Analysis complete";
+
+
+                    scanTitle.textContent =
+                        "Analysis Complete";
+
+
+                    /*
+                       TEMPORARY FRONTEND DEMO
+
+                       This keeps the UI working until the
+                       Flask / ML prediction endpoint is connected.
+                    */
+
+                    setTimeout(
+                        function () {
+
+                            analysisResult.classList.add(
+                                "show"
+                            );
+
+                        },
+                        500
+                    );
+
+
+                },
+                5000
+            );
+
+        }
+
+
+
+        /* =====================================================
+           ANALYZE BUTTON
+        ===================================================== */
+
+        analyzeButton.addEventListener(
+            "click",
+            startAnalysis
+        );
+
+
+
+        /* =====================================================
+           CLOSE RESULT
+        ===================================================== */
+
+        closeResult.addEventListener(
+            "click",
+            function () {
+
+                scanOverlay.classList.remove(
+                    "active"
+                );
+
+
+                resetAnalysis();
+
+
+                urlInput.value = "";
+
+                clearUrl.classList.remove(
+                    "visible"
+                );
+
+
+                urlInput.focus();
+
+            }
+        );
+
+
+
+        /* =====================================================
+           CLOSE OVERLAY WITH ESCAPE
+        ===================================================== */
+
+        document.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (
+                    event.key === "Escape" &&
+                    scanOverlay.classList.contains("active")
+                ) {
+
+                    scanOverlay.classList.remove(
+                        "active"
+                    );
+
+                    resetAnalysis();
+
+                }
+
+            }
+        );
+
+
+        /* =====================================================
+           INITIALIZE
+        ===================================================== */
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function () {
+
+                urlInput.focus();
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>
